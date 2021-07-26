@@ -5,7 +5,7 @@ UEFI开发环境搭建
 
 (2)EDK2-stable-202002 下载到E:\edk2-edk2-stable202002
 
-(3)Python 3.7
+(3)Python 3.8
 下载到C:\Users\Administrator\AppData\Local\Programs\Python\Python38
 
 (4)	nasm 下载到c:/nasm
