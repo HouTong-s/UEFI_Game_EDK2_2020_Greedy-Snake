@@ -1,0 +1,43 @@
+UEFI开发环境搭建
+一、正确流程
+1、软件\源码准备：
+(1)Visual Studio community 2017
+
+(2)EDK2-stable-202002 下载到E:\edk2-edk2-stable202002
+
+(3)Python 3.7
+下载到C:\Users\Administrator\AppData\Local\Programs\Python\Python38
+
+(4)	nasm 下载到c:/nasm
+
+(5)ASL下载到c:/asl
+2、环境变量配置
+BASE_TOOLS_PATH=E:\edk2-edk2-stable202002\BaseTools EDK_TOOLS_PATH=E:\edk2-edk2-stable202002\BaseTools
+ISAL_PREFIX=c:/asl
+NASM_PREFIX=c:/nasm
+PYTHON_HOME=C:\Users\Administrator\AppData\Local\Programs\Python\Python38
+VS2017_PREFIX=E:\program_files\VS2017\VC\Tools\MSVC\14.16.27023\
+3、配置EDK2
+(1)	cmd进入EDK安装目录执行edksetup.bat Rebuild
+(2)	配置\conf\target.txt，将Tool_CHAIN_TAG改为VS2017
+(3)	把\conf\tools_def.txt中的DEFINE VS_HOST从x86改为x64
+(4)	执行edksetup.bat VS2017
+(5)	执行build -a X64
+(6)	编译成功，得到winhost.exe
+ 
+双击执行
+ 
+成功搭建成开发环境
+二、遇到的困难
+(1)	较新版本的EDK2不支持edksetup.bat --nt32命令，在网上查找资料以及自己查看命令说明之后，我知道应该执行edksetup.bat Rebuild 和edksetup.bat VS2017两个命令，来自动生成conf下的文件夹以及设置好相关变量。
+(2)	在完成上述过程之后，直接使用build会出现”error 7000: Failed to execute command”的相关错误，在网上查找相关资料之后，大概猜测这是由于操作系统位数和EDK不匹配。于是我先尝试把\conf\target.txt的Tool_CHAIN_TAG改为VS2017x86，然后build出现找不到VS2017x86的错误。于是我明白了Tool_CHAIN_TAG应该还是为VS2017，不应该改动。
+(3)	我在此之后尝试了好几天，最后发现，要把\conf\tools_def.txt中的VS_HOST从x86改为x64，并且要在build命令后面加上-a X64，这样一来就全变为64位的，在经过漫长等待后终于编译成功，成功完成环境搭建。
+ 
+三、参考内容
+https://blog.csdn.net/qq_37654704/article/details/105395261
+
+
+
+
+
+
